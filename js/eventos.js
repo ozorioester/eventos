@@ -1,3 +1,4 @@
+
 //baixa o conteudo json e cria a variavel dados
 $.getJSON("model/eventos_listar.php", function(dados){
     
@@ -27,25 +28,42 @@ $.getJSON("model/eventos_listar.php", function(dados){
 
 }); // fim do getJSON
 
-//envia o form
+// enviar o form
 $("#btn-salvar").click(function(){
 
     var erro = false;
-    
+
     //verifica cada input do formulario
-    $("#form-eventos input").each(function(el){
-        if ($(this).removeClass("is-invalid") ;
+    $('#form-eventos input').each(function(el){
+        $(this).removeClass("is-invalid");
+        
+        if ($(this).val() == "")
         {
             erro = true;
             $(this).addClass("is-invalid");
         }
-    });
+    }); //fim do each
+
     if (erro == false)
     {
-        $("#form-eventos").submit();
-    }
-   
-});
+        var dados = {
+            nome: $("#input-nome").val(),
+            local: $("#input-local").val(),
+            datahora: $("#input-datahora").val(),
+            descricao: $("#text-descricao").val(),
+            preco: $("#input-preco").val()
+        };
+
+        // Envia os dados do formulario via ajax
+        $.post("model/eventos_cadastrar.php", dados, function(retorno, status){
+            
+            $("#cadastrar-evento").modal('hide');
+            $("#alert-cadastro").show();
+
+        }); //fim do post
+    } //fim do if
+    
+}); //fim do button click
 
 //formata data no input
 $("#input-datahora").datepicker({
@@ -55,8 +73,5 @@ $("#input-datahora").datepicker({
     todayHighlight: true
 });
 
-//mascara do valor do preço
-$("#input-preco").mask('000.000,00'), {reverse: true});
-
-
-
+// mascara do valor do preço
+$("#input-preco").mask('000.000,00', {reverse: true});

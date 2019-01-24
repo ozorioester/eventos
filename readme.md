@@ -1,6 +1,5 @@
-- -  Sistema de Eventos - -
+= Sistema de Eventos =
 
-* Controle de usuários
-* Opção de Buscas
-* Cadastro dos Eventos - CRUD
-* 
+* Controle de usuarios
+* opção de busca
+* cadastro de eventos - CRUD
